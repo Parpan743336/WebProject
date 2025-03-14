@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Holi Greetings!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    
+    .container {
+      text-align: center;
+      z-index: 10;
+      padding: 2rem;
+      border-radius: 1rem;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      backdrop-filter: blur(4px);
+      max-width: 800px;
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #ff3366, #ff9933, #ffcc33, #33cc33, #3366ff, #cc33ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbow 6s linear infinite;
+    }
+    
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    button {
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      background: linear-gradient(45deg, #ff3366, #ff9933);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+    }
+    
+    button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 7px 20px rgba(255, 51, 102, 0.4);
+    }
+    
+    .color-splash {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      animation-name: float;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      opacity: 0.7;
+      z-index: 1;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100px) rotate(180deg);
+      }
+    }
+    
+    @keyframes rainbow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .message {
+      display: none;
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .pichkari {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      animation: shake 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(5deg); }
+      75% { transform: rotate(-5deg); }
+    }
+    
+    .dhol {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      bottom: 20px;
+      left: 20px;
+      animation: bounce 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    /* New styles for author credit */
+    .author-credit {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      font-weight: 600;
+      z-index: 20;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+    
+    .author-credit span {
+      display: inline-block;
+      animation: letterFloat 2s ease-in-out infinite;
+      animation-direction: alternate;
+    }
+    
+    @keyframes letterFloat {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        color: #ff3366;
+      }
+      25% {
+        color: #ff9933;
+      }
+      50% {
+        color: #33cc33;
+      }
+      75% {
+        color: #3366ff;
+      }
+      100% {
+        transform: translateY(-10px) rotate(5deg);
+        color: #cc33ff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Happy Holi 2025!</h1>
+    <p>May this festival of colors bring joy, love, and happiness to your life! Let's celebrate the victory of good over evil and the arrival of spring.</p>
+    <button id="celebrate">Spread Colors!</button>
+    <div id="personalMessage" class="message">
+      <p>Wishing you and your family a colorful and joyous Holi filled with sweet moments and cherished memories!</p>
+    </div>
+  </div>
+  
+  <img src="/api/placeholder/60/60" alt="Water gun" class="pichkari" id="pichkari">
+  <img src="/api/placeholder/70/70" alt="Dhol" class="dhol" id="dhol">
+  
+  <!-- Added author credit with animation -->
+  <div class="author-credit" id="authorCredit"></div>
+  
+  <script>
+    // Create color splashes
+    const colors = ['#FF5733', '#33FF57', '#3357FF', '#F357FF', '#F3FF57', '#FF57F3'];
+    const container = document.body;
+    
+    // Create initial color splashes
+    for (let i = 0; i < 30; i++) {
+      createColorSplash();
+    }
+    
+    // Function to create a color splash
+    function createColorSplash() {
+      const splash = document.createElement('div');
+      splash.className = 'color-splash';
+      
+      // Random properties
+      const size = Math.random() * 60 + 20;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const left = Math.random() * 100;
+      const duration = Math.random() * 10 + 5;
+      const delay = Math.random() * 5;
+      
+      // Apply styles
+      splash.style.width = `${size}px`;
+      splash.style.height = `${size}px`;
+      splash.style.backgroundColor = color;
+      splash.style.left = `${left}vw`;
+      splash.style.top = `${Math.random() * 100}vh`;
+      splash.style.animationDuration = `${duration}s`;
+      splash.style.animationDelay = `${delay}s`;
+      
+      container.appendChild(splash);
+      
+      // Remove after animation
+      setTimeout(() => {
+        splash.remove();
+        createColorSplash();
+      }, (duration + delay) * 1000);
+    }
+    
+    // Button click event
+    document.getElementById('celebrate').addEventListener('click', function() {
+      // Show personalized message
+      document.getElementById('personalMessage').style.display = 'block';
+      
+      // Add more color splashes on click
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          createColorSplash();
+        }, i * 100);
+      }
+    });
+    
+    // Add sound effects
+    const pichkari = document.getElementById('pichkari');
+    const dhol = document.getElementById('dhol');
+    
+    pichkari.addEventListener('click', function() {
+      // Spray more colors
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          createColorSplash();
+        }, i * 50);
+      }
+    });
+    
+    dhol.addEventListener('click', function() {
+      // Change background colors
+      document.body.style.background = `linear-gradient(135deg, ${colors[Math.floor(Math.random() * colors.length)]} 0%, ${colors[Math.floor(Math.random() * colors.length)]} 100%)`;
+      
+      // Add more animations
+      document.querySelector('h1').style.animation = 'rainbow 3s linear infinite';
+    });
+    
+    // Create animated author credit
+    const authorCredit = document.getElementById('authorCredit');
+    const authorText = "by Arpan Purkait";
+    
+    // Create each letter with individual animation
+    for (let i = 0; i < authorText.length; i++) {
+      const span = document.createElement('span');
+      span.textContent = authorText[i];
+      span.style.animationDelay = `${i * 0.1}s`;
+      authorCredit.appendChild(span);
+    }
+  </script>
+</body>
+</html>
